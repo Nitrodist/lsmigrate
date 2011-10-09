@@ -1,0 +1,45 @@
+#!/bin/bash
+
+function show_help {
+
+	echo "Call $(echo $0 | sed 's/.*\///g') with a list of files that are in the UTC migration format for Ruby on Rails and a pretty list will be printed."
+	exit 1
+
+}
+
+while [[ $1 == -* ]]; do
+	case "$1" in
+		-h|--help|-\?) show_help; exit 0;;
+		--) shift; break;;
+		-*) echo "invalid option: $1" 1>&2; show_help; exit 1;;
+	esac
+done
+
+sorted=$(echo "$@" | tr ' ' '\n' | sort )
+
+# $@ has the rest of our files now.
+
+echo "Pretty Date                   Ugly Date                  Text"
+echo ""
+
+count=0
+
+# 20101004052051_create_meals.rb
+# 2010 10 04 05:20:51
+for migration in $sorted
+do
+	# Check for appropriate format 
+	re='[0-9]{14,14}_.*'
+	[[ ! $migration =~ $re  ]] && continue
+	ugly_date=$(echo $migration | sed 's/_.*//g')
+	year=${ugly_date:0:4}
+	month=${ugly_date:4:2}
+	day=${ugly_date:6:2}
+	hour=${ugly_date:8:2}
+	minute=${ugly_date:10:2}
+	second=${ugly_date:12:2}
+	text=$(echo $migration | sed 's/[0-9]\{14,14\}_//g' | sed 's/_/ /g' )
+	text=${text%\.*}
+	echo "${year}-${month}-${day} ${hour}:${minute}:${second}           ${ugly_date}             $text"
+done
+
