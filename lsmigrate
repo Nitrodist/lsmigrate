@@ -15,9 +15,14 @@ while [[ $1 == -* ]]; do
 	esac
 done
 
-sorted=$(echo "$@" | tr ' ' '\n' | sort )
-
 # $@ has the rest of our files now.
+
+if [[ $1 == "" ]]
+then
+	sorted=$(ls * | tr ' ' '\n' | sort ) # use current directory
+else
+	sorted=$(echo "$@" | tr ' ' '\n' | sort )
+fi
 
 echo "Pretty Date                   Ugly Date                  Text"
 echo ""
