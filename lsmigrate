@@ -29,6 +29,8 @@ echo ""
 
 count=0
 
+out=""
+
 # 20101004052051_create_meals.rb
 # 2010 10 04 05:20:51
 for migration in $sorted
@@ -45,6 +47,8 @@ do
 	second=${ugly_date:12:2}
 	text=$(echo $migration | sed 's/[0-9]\{14,14\}_//g' | sed 's/_/ /g' )
 	text=${text%\.*}
-	echo "${year}-${month}-${day} ${hour}:${minute}:${second}           ${ugly_date}             $text"
+	out+="${year}-${month}-${day} ${hour}:${minute}:${second}           ${ugly_date}             $text \n"
 done
+
+echo -e "$out"
 
