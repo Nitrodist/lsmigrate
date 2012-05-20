@@ -1,9 +1,12 @@
+## About
+
 This small bash script will take the files it is passed and make them slightly more legible to read.
 
 To install, just throw the lsmigrate file into your PATH somewhere, make sure you can execute it (chmod +x) and then you can start using it.
 
-* Before
+## Before
 
+```shell
 mark@linux-qmbm:~/rubyapps/fat_free_crm/db/migrate> ls * | cat
 20100928030598_create_sessions.rb
 20100928030599_create_users.rb
@@ -19,9 +22,11 @@ mark@linux-qmbm:~/rubyapps/fat_free_crm/db/migrate> ls * | cat
 20100928030609_create_account_contacts.rb
 20100928030610_create_account_opportunities.rb
 20100928030611_create_contact_opportunities.rb
+```
 
-* After!
+## After!
 
+```shell
 mark@linux-qmbm:~/rubyapps/fat_free_crm/db/migrate> lsmigrate *
 Pretty Date                   Ugly Date                  Text
 
@@ -39,3 +44,4 @@ Pretty Date                   Ugly Date                  Text
 2010-09-28 03:06:09           20100928030609             create account contacts
 2010-09-28 03:06:10           20100928030610             create account opportunities
 2010-09-28 03:06:11           20100928030611             create contact opportunities
+```shell
